@@ -1,7 +1,15 @@
 //Array of topics
+var breakfast = ['waffles', 'sunny side up', 'mimosa', 'coffee', 'bacon', 'pancakes', 'bloody mary','croissant','french toast', 'oatmeal', ]
 
 //Display topic buttons
-
+function topics () {
+    breakfast.forEach(function (food){
+        var button = document.createElement('button')
+        button.innerText = food
+        document.getElementById('topics').appendChild(button)
+    })
+}
+topics()
 //On-click topic button, display GIF results
     //fetch results GIPHY
     //Create array of objects
