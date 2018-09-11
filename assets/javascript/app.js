@@ -38,7 +38,7 @@ function topicSearch(thisbutton) {
                     var box = document.createElement('div')
                     box.innerHTML = `
                     <h3>Rating: ${result.rating}</h3>  
-                    <img src='${result.still}' onclick='toggleGif(${index})'>
+                    <img src='${result.still}' id='js-gif${index}' onclick='toggleGif(${index})'>
                     `
                     document.getElementById('results').appendChild(box)
                 })
@@ -54,5 +54,15 @@ function topicSearch(thisbutton) {
     //call function to display all topics
 
 //On-click GIF result, toggle animation
+function toggleGif(index){
     //if still change image source to animated URL
-    //else change image source to still URL
+    if (resultsArr[index].isStill){
+        document.getElementById('js-gif' + index).setAttribute('src', resultsArr[index].animated)
+        resultsArr[index].isStill = false
+    }
+    else{   //change image source to still URL
+        
+        document.getElementById('js-gif' + index).setAttribute('src', resultsArr[index].still)
+        resultsArr[index].isStill = true
+    }
+}
