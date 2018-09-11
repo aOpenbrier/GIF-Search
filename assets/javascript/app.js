@@ -1,12 +1,12 @@
 //Array of topics
-var breakfast = ['waffles', 'sunny side up', 'mimosa', 'coffee', 'bacon', 'pancakes', 'bloody mary','croissant','french toast', 'oatmeal', ]
+var breakfast = ['waffles', 'sunny side up', 'mimosa', 'coffee', 'bacon', 'pancakes', 'bloody mary', 'croissant', 'french toast', 'oatmeal',]
 var resultsArr = []
 
 //Display topic buttons
-function topics () {
-    breakfast.forEach(function (food){
+function topics() {
+    breakfast.forEach(function (bfItem) {
         var button = document.createElement('button')
-        button.innerText = food
+        button.innerText = bfItem
         button.setAttribute('onclick', 'topicSearch(this)')
         document.getElementById('topics').appendChild(button)
     })
@@ -14,20 +14,17 @@ function topics () {
 topics()
 
 //On-click topic button, display GIF results
-    //fetch results GIPHY
-    function topicSearch (thisbutton) {
-        console.log(thisbutton.innerText)
-        var term = thisbutton.innerText.split(' ')
-        term = term.join('+')
-        console.log(term)
-        fetch(`https://api.giphy.com/v1/gifs/search?api_key=buZQtISojwONGK37O7pDCyQ2sWkvVdCp&q=${term}&limit=10`)
+//fetch results GIPHY
+function topicSearch(thisbutton) {
+    var term = thisbutton.innerText.split(' ')
+    term = term.join('+')
+    fetch(`https://api.giphy.com/v1/gifs/search?api_key=buZQtISojwONGK37O7pDCyQ2sWkvVdCp&q=${term}&limit=10`)
         .then(function (response) {
             return response.json()
         })
         .then(function (results) {
-            console.log(results)
             //Create array of objects
-            results.data.forEach(function (result, index){
+            results.data.forEach(function (result, index) {
                 resultsArr[index] = {
                     //values: still image url, animated image URL, rating, isStill:true
                     rating: result.rating,
@@ -35,13 +32,22 @@ topics()
                     animated: result.images.original.url,
                     isStill: true,
                 }
-            console.log(resultsArr)
+                //display GIF stills
+                document.getElementById('results').innerHTML = ''
+                resultsArr.forEach(function (result, index) {
+                    var box = document.createElement('div')
+                    box.innerHTML = `
+                    <h3>Rating: ${result.rating}</h3>  
+                    <img src='${result.still}' onclick='toggleGif(${index})'>
+                    `
+                    document.getElementById('results').appendChild(box)
+                })
             })
         }).catch(function (e) {
             console.error(e)
         })
-        //display GIF stills
-    }
+
+}
 
 //On-click submit button, add topic button
     //push to array
