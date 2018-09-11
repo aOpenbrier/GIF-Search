@@ -1,12 +1,13 @@
 //Array of topics
-var breakfast = ['waffles', 'sunny side up', 'mimosa', 'coffee', 'bacon', 'pancakes', 'bloody mary', 'croissant', 'french toast', 'oatmeal',]
+var breakfastArr = ['waffles', 'sunny side up', 'mimosa', 'coffee', 'bacon', 'pancakes', 'bloody mary', 'croissant', 'french toast', 'oatmeal',]
 var resultsArr = []
 
 //Display topic buttons
 function topics() {
-    breakfast.forEach(function (bfItem) {
+    breakfastArr.forEach(function (bfItem) {
         var button = document.createElement('button')
         button.innerText = bfItem
+        button.className='topicButton'
         button.setAttribute('onclick', 'topicSearch(this)')
         document.getElementById('topics').appendChild(button)
     })
@@ -28,8 +29,8 @@ function topicSearch(thisbutton) {
                 resultsArr[index] = {
                     //values: still image url, animated image URL, rating, isStill:true
                     rating: result.rating,
-                    still: result.images.original_still.url,
-                    animated: result.images.original.url,
+                    still: result.images.fixed_width_still.url,
+                    animated: result.images.fixed_width.url,
                     isStill: true,
                 }
                 //display GIF stills
@@ -38,7 +39,7 @@ function topicSearch(thisbutton) {
                     var box = document.createElement('div')
                     box.innerHTML = `
                     <h3>Rating: ${result.rating}</h3>  
-                    <img src='${result.still}' id='js-gif${index}' onclick='toggleGif(${index})'>
+                    <img src='${result.still}' class='gif-box' id='js-gif${index}' onclick='toggleGif(${index})'>
                     `
                     document.getElementById('results').appendChild(box)
                 })
@@ -50,8 +51,14 @@ function topicSearch(thisbutton) {
 }
 
 //On-click submit button, add topic button
+function addTopic(){
+    event.preventDefault()
     //push to array
+    breakfastArr.push(document.getElementById('topicInput').value)
+    document.getElementById('topicInput').value = ''
     //call function to display all topics
+    topics()
+}
 
 //On-click GIF result, toggle animation
 function toggleGif(index){
