@@ -4,6 +4,8 @@ var resultsArr = []
 
 //Display topic buttons
 function topics() {
+    //clear topics section
+    document.getElementById('topics').innerHTML = ''
     breakfastArr.forEach(function (bfItem) {
         var button = document.createElement('button')
         button.innerText = bfItem
@@ -15,19 +17,19 @@ function topics() {
 topics()
 
 //On-click topic button, display GIF results
-//fetch results GIPHY
 function topicSearch(thisbutton) {
+    //format term to API requirements (use plus sign, no spacees)
     var term = thisbutton.innerText.split(' ')
     term = term.join('+')
+
     fetch(`https://api.giphy.com/v1/gifs/search?api_key=buZQtISojwONGK37O7pDCyQ2sWkvVdCp&q=${term}&limit=10`)
         .then(function (response) {
             return response.json()
         })
         .then(function (results) {
-            //Create array of objects
+            //Create array of GIF objects
             results.data.forEach(function (result, index) {
                 resultsArr[index] = {
-                    //values: still image url, animated image URL, rating, isStill:true
                     rating: result.rating,
                     still: result.images.fixed_width_still.url,
                     animated: result.images.fixed_width.url,
@@ -39,7 +41,7 @@ function topicSearch(thisbutton) {
                     var box = document.createElement('div')
                     box.innerHTML = `
                     <h3>Rating: ${result.rating}</h3>  
-                    <img src='${result.still}' class='gif-box' id='js-gif${index}' onclick='toggleGif(${index})'>
+                    <img src='${result.still}' class='gif' id='js-gif${index}' onclick='toggleGif(${index})'>
                     `
                     document.getElementById('results').appendChild(box)
                 })
