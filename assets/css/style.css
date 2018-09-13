@@ -1,0 +1,50 @@
+html{
+    /*system fonts */
+    font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    background-color: deepskyblue; 
+}
+
+.topicButton{
+    margin: 2px;
+    padding: 5px;
+    border: none;
+    border-radius: 6px;
+    background-color: gold;
+}
+
+form{
+    display: inline-block;
+    margin: 2px;
+}
+
+#submit{
+    margin: 2px;
+    padding: 5px;
+    border: none;
+    border-radius: 6px;
+}
+
+h3{
+    margin: .5em .5em 0;
+}
+
+.gif{
+    margin: .5em;
+}
+
+#customize{
+    float: right;
+}
+
+#results{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    clear: both;
+}
+
+@media only screen and (min-width: 449px){
+    #results{
+        justify-content: space-around;
+    }
+}
